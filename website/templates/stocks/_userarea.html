@@ -1,0 +1,51 @@
+{% load i18n %}
+<ul class="nav nav-tabs nav-justified" role="tablist">
+    {% url "portfolio" as path %}
+    <li {% if path == request.path %}class="active"{% endif %}>
+        <a href="{{ path }}">
+            {% trans "Portfolio" %}
+        </a>
+    </li>
+    {% url "historical" as path %}
+    <li {% if path == request.path %}class="active"{% endif %}>
+        <a href="{{ path }}">
+            {% trans "Download data" %}
+        </a>
+    </li>
+    {% url "query" as path %}
+    <li {% if path == request.path %}class="active"{% endif %}>
+        <a href="{{ path }}">
+            {% trans "Date Query" %}
+        </a>
+    </li>
+    {% url "symbolInfo" as path %}
+    <li {% if path == request.path %}class="active"{% endif %}>
+        <a href="{{ path }}">
+            {% trans "Company Info." %}
+        </a>
+    </li>
+    {% url "dayInfo" as path %}
+    <li {% if path == request.path %}class="active"{% endif %}>
+        <a href="{{ path }}">
+            {% trans "Date Stocks" %}
+        </a>
+    </li>
+    {% url "lastUpdated" as path %}
+    <li {% if path == request.path %}class="active"{% endif %}>
+        <a href="{{ path }}">
+            {% trans "Last Update" %}
+        </a>
+    </li>
+    {% url "UpdateDatabase" as path %}
+    <li {% if path == request.path %}class="active"{% endif %}>
+        <a href="{{ path }}">
+            {% trans "Update Locally" %}
+        </a>
+    </li>
+    
+    <li>
+        <a href={% url "logout" %}>
+            {% trans "Logout" %}
+        </a>
+    </li>
+</ul>

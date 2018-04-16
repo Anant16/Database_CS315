@@ -1,0 +1,27 @@
+{% extends "stocks/_base.html" %}
+{% load i18n %}
+{% block content %}
+    <h3>{% trans "Stocks" %}</h3>
+{% if messages %}
+    {% for message in messages %}
+        {{message}}
+    {% endfor %}
+
+{% endif %}
+<form method="post" action="{% url 'UpdateDatabase' %}" class="form-inline">
+    <div class="form-group">
+    {% csrf_token %}<br>
+    {% for field in form %}
+    <tr>
+        <td>
+        {{ field.errors }}
+        {{ field.label }}
+        {{ field }}
+        </td>
+    </tr>
+    {% endfor %}
+    <input type="submit" value="{% trans "Execute" %}"
+           class="btn btn-primary">
+    </div>
+</form>
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends "stocks/_base.html" %}
+{% load i18n %}
+{% block content %}
+
+<h3>{% trans "Download historic data" %}</h3>
+
+<form method="post" action="{% url 'historical' %}" class="form-horizontal">
+    {% csrf_token %}<br>
+    {% for field in form %}
+        {{ field.label }}<br>
+        {{ field }}<br>
+        <small>{{ field.help_text }}</small>
+        {{ field.errors }}<br><br>
+    {% endfor %}
+    <input type="submit" value="{% trans "Download historic data" %}"
+           class="btn btn-primary">
+</form>
+
+{% endblock content %}

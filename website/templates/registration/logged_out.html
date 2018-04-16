@@ -1,0 +1,8 @@
+{% extends "stocks/_base.html" %}
+{% load i18n %}
+{% block content %}
+    <h3>{% trans "Successfully signed out" %}</h3>
+    <a class="btn btn-default" href={% url "login" %}>
+        {% trans "Sign in again" %}
+    </a>
+{% endblock %}

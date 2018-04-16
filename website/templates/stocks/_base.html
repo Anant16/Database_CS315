@@ -1,0 +1,21 @@
+{% load i18n %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% block title %}{% trans "Stocks" %}{% endblock %}
+    </title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+</head>
+<body>
+<div class="container">
+    <br>
+    {% if request.user.is_authenticated %}
+        {% include "stocks/_userarea.html" %}
+    {% endif %}
+    {% block content %}{% endblock %}
+</div>
+</body>
+{% block scripts %}{% endblock %}
+</html>

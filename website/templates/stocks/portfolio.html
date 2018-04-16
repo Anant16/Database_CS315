@@ -1,0 +1,68 @@
+{% extends "stocks/_base.html" %}
+{% load i18n %}
+{% block content %}
+    <h3>{% trans "Stocks" %}</h3>
+{% if infos %}
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                {% trans "Name" %} 
+            </th>
+            <th>
+                {% trans "Symbol" %} 
+            </th>
+            <th>
+                {% trans "Volume" %}
+            </th>
+            <th>
+                {% trans "Open" %}
+            </th>
+            <th>
+                {% trans "High" %}
+            </th>
+            <th>
+                {% trans "Low" %}
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for i in infos %}
+        <tr>
+            <td>
+                {{ i.Name }}
+            </td>
+            <td>
+                {{ i.Handle }}
+            </td>
+            <td>
+                {{ i.Volume }}
+            </td>
+            <td>
+                {{ i.Open }}
+            </td>
+            <td>
+                {{ i.High }}
+            </td>
+            <td>
+                {{ i.Low }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endif %}
+<form method="post" action="{% url 'portfolio' %}" class="form-inline">
+    <div class="form-group">
+    {% csrf_token %}<br>
+    {% for field in form %}
+        {{ field.errors }}
+        {{ field.label }}
+        {{ field }}
+    {% endfor %}
+    <input type="submit" value="{% trans "Add stock" %}"
+           class="btn btn-primary">
+    </div>
+</form>
+{% endblock content %}

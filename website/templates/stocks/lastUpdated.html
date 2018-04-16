@@ -1,0 +1,61 @@
+{% extends "stocks/_base.html" %}
+{% load i18n %}
+{% block content %}
+    <h3>{% trans "Stocks" %}</h3>
+{% if infos %}
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                {% trans "Handle" %} 
+            </th>
+            <th>
+                {% trans "lastUpdated" %} 
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for i in infos %}
+        <tr>
+            <td>
+                {{ i.Handle_id }}
+            </td>
+            <td>
+                {{ i.Date }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endif %}
+{% if message %}
+    <table class="table table-striped">
+    <tbody>
+    {% for i in message %}
+        <tr>
+        {{i}}
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endif %}
+
+<form method="post" action="{% url 'lastUpdated' %}" class="form-inline">
+    <div class="form-group">
+    {% csrf_token %}<br>
+    {% for field in form %}
+    <tr>
+        <td>
+        {{ field.errors }}
+        {{ field.label }}
+        {{ field }}
+        </td>
+    </tr>
+    {% endfor %}
+    <input type="submit" value="{% trans "Execute" %}"
+           class="btn btn-primary">
+    </div>
+</form>
+{% endblock content %}

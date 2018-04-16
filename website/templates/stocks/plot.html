@@ -1,0 +1,77 @@
+{% extends "stocks/_base.html" %}
+{% load i18n %}
+{% block content %}
+{% if not rows %}
+
+{% else %}
+<h3>{% trans "Plot"%}
+<small>
+{% trans "plot & table are based on a 1-month, 1,000 investment for each stock." %}
+</small>
+</h3>
+<div id="plot" style="height: 400px; min-width: 310px"></div>
+
+<h3>{% trans "Table"%}</h3>
+<table id="table" class="table table-striped">
+<thead>
+    <tr>
+        <th>
+            {% trans "Portfolio Value" %} 
+        </th>
+        <th>
+            {% trans "Date" %} 
+        </th>
+        <th>
+            {% trans "Percent" %}
+        </th>
+        <th>
+            {% trans "Volume" %}
+        </th>
+        <th>
+            {% trans "High" %}
+        </th>
+        <th>
+            {% trans "Low" %}
+        </th>
+        <th>
+            {% trans "Close" %}
+        </th>
+    </tr>
+</thead>
+<tbody>
+    {% for r in rows %}
+    <tr>
+        <td class="value">
+            ${{ r.Value|floatformat:2 }}
+        </td>
+        <td class="date">
+            {{ r.Date }}
+        </td>
+        <td style="color: {% if r.Percent > 0 %}green{% else %}red{% endif %};">
+            {% if r.Percent > 0 %}+{% endif %}{{ r.Percent|floatformat:2 }}
+        </td>
+        <td>
+            {{ r.Volume }}
+        </td>
+        <td>
+            {{ r.High|floatformat:2 }}
+        </td>
+        <td>
+            {{ r.Low|floatformat:2 }}
+        </td>
+        <td>
+            {{ r.AdjClose|floatformat:2 }}
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+{% endif %}
+{% endblock content %}
+{% block scripts %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.8.2.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/highstock/highstock.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/highstock/modules/exporting.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/plot.js"></script>
+{% endblock %}
+

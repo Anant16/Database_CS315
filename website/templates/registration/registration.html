@@ -1,0 +1,25 @@
+{% extends "stocks/_base.html" %}
+{% load i18n %}
+{% block content %}
+
+<h3>{% trans "Create an account" %}
+    <small>
+        {% trans "or" %}
+            <a href="{% url "login" %}">
+                {% trans "sign in" %}
+            </a>
+    </small>
+</h3>
+
+<form method="post" action="{% url 'registration' %}" class="form-horizontal">
+    {% csrf_token %}<br>
+    {% for field in form %}
+        {{ field.label }}<br>
+        {{ field }}
+        {{ field.errors }}<br><br>
+    {% endfor %}
+    <input type="submit" value="{% trans "Create account" %}"
+           class="btn btn-primary">
+</form>
+
+{% endblock %}

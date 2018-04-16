@@ -1,0 +1,84 @@
+{% extends "stocks/_base.html" %}
+{% load i18n %}
+{% block content %}
+    <h3>{% trans "Stocks" %}</h3>
+{% if infos %}
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                {% trans "Handle" %} 
+            </th>
+            <th>
+                {% trans "Date" %} 
+            </th>
+            <th>
+                {% trans "Open" %}
+            </th>
+            <th>
+                {% trans "High" %}
+            </th>
+            <th>
+                {% trans "Low" %}
+            </th>
+            <th>
+                {% trans "Close" %}
+            </th>
+            <th>
+                {% trans "Volume" %}
+            </th>
+            <th>
+                {% trans "Adj_Close" %}
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for i in infos %}
+        <tr>
+            <td>
+                {{ i.Handle_id }}
+            </td>
+            <td>
+                {{ i.Date }}
+            </td>
+            <td>
+                {{ i.Open }}
+            </td>
+            <td>
+                {{ i.High }}
+            </td>
+            <td>
+                {{ i.Low }}
+            </td>
+            <td>
+                {{ i.Close }}
+            </td>
+            <td>
+                {{ i.Volume }}
+            </td>
+            <td>
+                {{ i.Adj_Close }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endif %}
+<form method="post" action="{% url 'query' %}" class="form-inline">
+    <div class="form-group">
+    {% csrf_token %}<br>
+    {% for field in form %}
+    <tr>
+        <td>
+        {{ field.errors }}
+        {{ field.label }}
+        {{ field }}
+        </td>
+    </tr>
+    {% endfor %}
+    <input type="submit" value="{% trans "Execute" %}"
+           class="btn btn-primary">
+    </div>
+</form>
+{% endblock content %}
