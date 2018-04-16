@@ -69,16 +69,22 @@ def get_historical_info(symbol):
     """Retrieves historical stock data for the provided symbol.
     Historical data includes date, open, close, high, low, volume,
     and adjusted close."""
-    yql = 'select * from csv where url=\'%s\'' \
-          ' and columns=\"Date,Open,High,Low,Close,Volume,AdjClose\"' \
-           % (HISTORICAL_URL + symbol)
-    results = executeYQLQuery(yql)
+    # yql = 'select * from csv where url=\'%s\'' \
+    #       ' and columns=\"Date,Open,High,Low,Close,Volume,AdjClose\"' \
+    #        % (HISTORICAL_URL + symbol)
+    # results = executeYQLQuery(yql)
     # delete first row which contains column names
-    if results['query']['results'] is None:
-        raise QueryError('Symbol %s does not exist in yahoo!finance database.'%symbol)
-        
-    del results['query']['results']['row'][0]
-    return results['query']['results']['row']
+
+    # if results['query']['results'] is None:
+    #     # raise QueryError('Symbol %s does not exist in yahoo!finance database.'%symbol)
+    #     return None
+    # else:
+    #     del results['query']['results']['row'][0]
+    #     return results['query']['results']['row']
+
+    temp = Historical.objects.filter(Handle = symbol)
+    if temp:
+        return temp
 
 def get_last_updated(Handle):
     """Return the date when the Handle was last cached locally."""
