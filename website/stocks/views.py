@@ -56,8 +56,8 @@ def historical(request):
                 for i, row in enumerate(data, start=1):
                     # print(getattr(row, fields[0].name,None))
                     for j, v in enumerate(fields):
-                        print(j,v)
-                        print(str(getattr(row, v.name,None)))
+                        # print(j,v)
+                        # print(str(getattr(row, v.name,None)))
                         sheet.write(i, j, str(getattr(row, v.name,None)))
                 response = HttpResponse(content_type='application/x-msexcel')
                 response['Pragma'] = 'no-cache'
